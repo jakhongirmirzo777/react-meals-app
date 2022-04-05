@@ -1,8 +1,19 @@
 import classes from './MealItem.module.css'
 import MealItemForm from "./MealItemForm";
+import {useContext} from "react";
+import CartContext from "../../../store/cart-context";
 
 const MealItem = ({meal, className}) => {
+    const {addItem} = useContext(CartContext)
     const price = `$${meal.price.toFixed(2)}`
+    const submitHandler = (formData) => {
+        addItem({
+            ...formData,
+            id: meal.id,
+            name: meal.name,
+            price: meal.price
+        })
+    }
     return (
         <li className={`${className} ${classes['meal']}`}>
             <div>
@@ -11,7 +22,7 @@ const MealItem = ({meal, className}) => {
                 <div className={classes['price']}>{price}</div>
             </div>
             <div>
-                <MealItemForm/>
+                <MealItemForm onSubmit={submitHandler}/>
             </div>
         </li>
     )

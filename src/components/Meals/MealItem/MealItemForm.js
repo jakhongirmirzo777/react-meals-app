@@ -1,9 +1,20 @@
 import classes from './MealItemForm.module.css'
 import Input from "../../UI/Input";
+import {useState} from "react";
 
-const MealItemForm = () => {
+const FORM_DATA = {
+    amount: 0
+}
+const MealItemForm = ({onSubmit}) => {
+    const [formData, setFormData] = useState({...FORM_DATA})
+    const submitHandler = (e) => {
+        e.preventDefault()
+        onSubmit({amount: +formData.amount})
+        setFormData({...FORM_DATA})
+    }
+    const onInputChange = (type) => (e) => setFormData(prevState => ({...prevState, [type]: e.target.value}))
     return (
-        <form className={classes['form']}>
+        <form onSubmit={submitHandler} className={classes['form']}>
             <Input
                 id='amount'
                 label='Amount'
@@ -14,6 +25,8 @@ const MealItemForm = () => {
                     step: '1',
                     defaultValue: '1'
                 }}
+                value={formData.amount}
+                onChange={onInputChange('amount')}
             />
             <button>+ Add</button>
         </form>
