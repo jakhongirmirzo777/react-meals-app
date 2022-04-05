@@ -3,7 +3,7 @@ import Input from "../../UI/Input";
 import {useState} from "react";
 
 const FORM_DATA = {
-    amount: 0
+    amount: 1
 }
 const MealItemForm = ({onSubmit}) => {
     const [formData, setFormData] = useState({...FORM_DATA})
@@ -22,8 +22,7 @@ const MealItemForm = ({onSubmit}) => {
                 options={{
                     min: '1',
                     max: '5',
-                    step: '1',
-                    defaultValue: '1'
+                    step: '1'
                 }}
                 value={formData.amount}
                 onChange={onInputChange('amount')}
